@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -ex
+
+#npm install
+#bower install
+
+gulp parched-clean
+NODE_ENV=production gulp parched-build
+NODE_ENV=production ./node_modules/.bin/build --appDir public/

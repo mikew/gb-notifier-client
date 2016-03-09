@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -ex
+
+#npm install
+#bower install
+
+gulp parched-clean
+gulp parched-watch
