@@ -1,36 +1,16 @@
 {
-  "name": "app",
-  "productName": "App",
+  "name": "GBNotifier",
+  "productName": "GBNotifier",
   "version": "1.0.0",
   "description": "",
   "license": "MIT",
   "main": "electron-main.js",
   "repository": "user/repo",
   "build": {
-    "app-path": "public/",
     "app-bundle-id": "com.mikewhy.gb-notifier-client",
-    "app-category-type": "internet",
-    "osx" : {
-      "title": "Builder Config osx Example",
-      "background": "./public/images/electron-builder/installer.png",
-      "icon": "./public/images/electron-builder/mount.icns",
-      "icon-size": 80,
-      "contents": [
-        { "x": 438, "y": 344, "type": "link", "path": "/Applications" },
-        { "x": 192, "y": 344, "type": "file" }
-      ]
-    },
-    "win" : {
-      "title" : "Builder Config Windows Example",
-      "icon" : "./public/images/electron-builder/icon.ico"
-    }
+    "app-category-type": "internet"
   },
-  "scripts": {
-    "postinstall": "install-app-deps",
-    "pack": "build",
-    "dist": "build",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": {
     "name": "",
     "email": "",
@@ -39,12 +19,12 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "scripts": {},
   "keywords": [
     "electron-app"
   ],
   "dependencies": {
-    "menubar": "^4.0.2"
+    "menubar": "^4.0.2",
+    "node-notifier": "^4.5.0"
   },
   "devDependencies": {}
 }

@@ -1,9 +1,27 @@
 #!/usr/bin/env bash
 set -ex
 
-#npm install
+#build-for-platform () {
+  #NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform "$1"
+  #NODE_ENV=production ./node_modules/.bin/electron-builder dist/app-darwin-x64/app.app --config builder.json --platform "$1" --out dist
+#}
+
+npm install
 #bower install
 
 gulp parched-clean
 NODE_ENV=production gulp parched-build
-NODE_ENV=production ./node_modules/.bin/build --appDir public/
+
+rm -rf dist/
+
+# Build OSX
+#NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform darwin --arch x64
+#NODE_ENV=production ./node_modules/.bin/electron-builder dist/app-darwin-x64/app.app --config builder.json --platform osx --out dist
+
+# Build Windows
+#NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform win32 --arch x64
+#NODE_ENV=production ./node_modules/.bin/electron-builder dist/app-darwin-x64/app.app --config builder.json --platform win --out dist
+
+# Build Linux
+NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform linux --arch x64
+NODE_ENV=production ./node_modules/.bin/electron-builder dist/GBNotifier-linux-x64 --config builder.json --platform linux --out dist

@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 set -ex
 
-#npm install
+npm install
 #bower install
+
+pushd app/assets/
+npm install
+popd
 
 gulp parched-clean
 gulp parched-watch

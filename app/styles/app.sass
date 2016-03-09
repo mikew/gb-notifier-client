@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after
+  font-family: 'Roboto Slab', serif
+  -webkit-user-select: none
+  user-select: none
+
+html,
+body
+  margin: 0
+  padding: 0
+  height: 100%
+
+body
+  color: #fff
+  background: linear-gradient(#eee 70%, #aaa)
+  overflow: hidden
+
+.Promo,
+.Promo__gradient,
+.Promo__contents,
+.Promo__overlay
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+
+.Promo
+  background-size: cover
+  background-position: center center
+  transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1.000)
+  text-align: center
+
+  &.isMuted
+    transform: scale3d(0.8, 0.8, 1.0)
+
+.Promo__gradient
+  background-image: radial-gradient(rgba(#000, 0), rgba(#000, 0.9))
+
+.Promo__overlay
+  background-color: rgba(#fff, 0.0)
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)
+  pointer-events: none
+
+  .isMuted &
+    background-color: rgba(#fff, 0.65)
+
+.SettingsButton
+  position: absolute
+  bottom: 0
+  right: 0
