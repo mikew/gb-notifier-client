@@ -5,3 +5,5 @@ bower_components/
 npm-debug.log
 public/
 dist/
+electron-builder/icon.icns
+electron-builder/icon.ico
