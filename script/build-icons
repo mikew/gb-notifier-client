@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -ex
+
+src="electron-builder/Icon.svg"
+tmpdest="tmp/electron-icon/icon.iconset/"
+rm -rf "${tmpdest}"
+mkdir -p "${tmpdest}"
+
+convert -background none "${src}" -resize 16x16 "${tmpdest}/icon_16x16.png"
+convert -background none "${src}" -resize 32x32 "${tmpdest}/icon_32x32.png"
+convert -background none "${src}" -resize 128x128 "${tmpdest}/icon_128x128.png"
+convert -background none "${src}" -resize 256x256 "${tmpdest}/icon_256x256.png"
+convert -background none "${src}" -resize 512x512 "${tmpdest}/icon_512x512.png"
+
+cp "${tmpdest}/icon_32x32.png" "${tmpdest}/icon_16x16@2x.png"
+convert -background none "${src}" -resize 64x64 "${tmpdest}/icon_32x32@2x.png"
+cp "${tmpdest}/icon_256x256.png" "${tmpdest}/icon_128x128@2x.png"
+cp "${tmpdest}/icon_512x512.png" "${tmpdest}/icon_256x256@2x.png"
+convert -background none "${src}" -resize 1024x1024 "${tmpdest}/icon_512x512@2x.png"
+
+iconutil -c icns "${tmpdest}"
+mv "${tmpdest}/../icon.icns" electron-builder/
+
+convert "${tmpdest}/icon_*.png" "${tmpdest}/icon.ico"
+mv "${tmpdest}/icon.ico" electron-builder/
