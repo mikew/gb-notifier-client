@@ -2,7 +2,7 @@
   "name": "GBNotifier",
   "productName": "GBNotifier",
   "version": "1.0.0",
-  "description": "",
+  "description": "A menubar application to notify you of live streams on GiantBomb",
   "license": "MIT",
   "main": "electron-main.js",
   "repository": "user/repo",
@@ -12,8 +12,8 @@
   },
   "scripts": {},
   "author": {
-    "name": "",
-    "email": "",
+    "name": "Mike Wyatt",
+    "email": "wyatt.mike@gmail.com",
     "url": ""
   },
   "engines": {

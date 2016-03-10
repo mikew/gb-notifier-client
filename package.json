@@ -1,11 +1,7 @@
 {
-  "name": "gb-notifier-client",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "directories": {
+    "buildResources": "electron-builder"
+  },
   "dependencies": {
     "electron-builder": "^2.8.6",
     "electron-connect": "^0.3.7",
