@@ -16,6 +16,7 @@
   "linux": {
     "title": "GBNotifier",
     "comment": "What",
-    "executable": "GBNotifier"
+    "executable": "GBNotifier",
+    "target": "zip"
   }
 }

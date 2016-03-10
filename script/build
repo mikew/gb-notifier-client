@@ -1,10 +1,54 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
-#build-for-platform () {
-  #NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform "$1"
-  #NODE_ENV=production ./node_modules/.bin/electron-builder dist/app-darwin-x64/app.app --config builder.json --platform "$1" --out dist
-#}
+build-electron-app () {
+  local platform_given="$1"
+  local platform_builder="${platform_given}"
+  local platform_packager="${platform_given}"
+
+  local arch="$2"
+  local src="public"
+  local dest="dist"
+
+  local build_dir="${dest}/*-${platform_given}-${arch}"
+
+  if [ $platform_given = "darwin" ]; then
+    local build_dir_original="${build_dir}"
+    platform_packager="osx"
+    build_dir="${build_dir}/*.app"
+  fi
+
+  if [ $platform_given = "win32" ]; then
+    platform_packager="win"
+  fi
+
+  NODE_ENV=production ./node_modules/.bin/build \
+      --appDir "${src}" \
+      --platform ${platform_builder} \
+      --arch ${arch}
+
+  NODE_ENV=production ./node_modules/.bin/electron-builder \
+      --config builder.json \
+      --platform ${platform_packager} \
+      --out ${dest} \
+      ${build_dir}
+
+  if [ $platform_given = "win32" ]; then
+    mv ${dest}/*Setup.exe "${dest}/$(basename ${dest}/*Setup.exe .exe)-${arch}.exe"
+  fi
+
+  if [ $platform_given = "linux" ]; then
+    # TODO `undefined` in the file name is obviously some issue with the config
+    # for linux
+    mv ${dest}/*-undefined-x86_64.zip "${dest}/$(basename ${dest}/*-undefined-x86_64.zip undefined-x86_64.zip)linux-${arch}.zip"
+  fi
+
+  if [ -n "${build_dir_original}" ]; then
+    rm -r ${build_dir_original}
+  else
+    rm -r ${build_dir}
+  fi
+}
 
 npm install
 #bower install
@@ -15,13 +59,12 @@ NODE_ENV=production gulp parched-build
 rm -rf dist/
 
 # Build OSX
-#NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform darwin --arch x64
-#NODE_ENV=production ./node_modules/.bin/electron-builder dist/app-darwin-x64/app.app --config builder.json --platform osx --out dist
+build-electron-app darwin x64
 
 # Build Windows
-#NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform win32 --arch x64
-#NODE_ENV=production ./node_modules/.bin/electron-builder dist/app-darwin-x64/app.app --config builder.json --platform win --out dist
+build-electron-app win32 ia32
+build-electron-app win32 x64
 
 # Build Linux
-NODE_ENV=production ./node_modules/.bin/build --appDir public/ --platform linux --arch x64
-NODE_ENV=production ./node_modules/.bin/electron-builder dist/GBNotifier-linux-x64 --config builder.json --platform linux --out dist
+build-electron-app linux ia32
+build-electron-app linux x64
